@@ -1,0 +1,5 @@
+# requirements.txt for Streamlit Community Cloud
+streamlit
+httpx
+pydantic
+pytest

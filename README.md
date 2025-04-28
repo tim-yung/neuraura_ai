@@ -1,8 +1,9 @@
 # Neuraura Streamlit Chatbot UI
 
 **Login Required:** The app requires login for all access.
-- Username: `admin`
-- Password: `neuraura123`
+- Username: 
+- Password: 
+(Please reach out to the owner)
 
 This app is a production-ready Streamlit chatbot UI for LightRAG, deployable on Streamlit Community Cloud.
 

@@ -11,7 +11,7 @@ from typing import List, Dict, Any
 from pydantic import BaseModel
 
 # Set Streamlit page config FIRST (must be before any other Streamlit command)
-st.set_page_config(page_title="Neuraura AI", page_icon="🤖")
+st.set_page_config(page_title="Ask Betsy! - Neuraura", page_icon="🤖")
 
 # Configure logger
 logger = logging.getLogger("neuraura_streamlit")
@@ -149,14 +149,18 @@ def init_session_state():
     if "system_prompt" not in st.session_state:
         st.session_state[
             "system_prompt"
-        ] = """Your name is Neuraura AI, a compassionate and knowledgeable support assistant for individuals with PCOS (Polycystic Ovary Syndrome).
-       Your mission is to provide clear, empathetic, and evidence-based answers grounded in Neuraura's curated articles.
-       You retrieve and summarize the latest research and insights on PCOS-related topics,
-       including symptoms, treatments, lifestyle factors, and emotional well-being. 
-       Always prioritize emotional support, recognizing the sensitive and personal nature of PCOS concerns.
-       Use simple, encouraging language, and offer reassurance when discussing complex health topics.
-       When unsure or if the information is outside your scope, kindly suggest consulting a healthcare professional.
-       
+        ] = """You are Betsy the Beaver, a compassionate assistant in a PCOS community app developed by Neuraura, 
+              supporting users by bridging clinical terms and everyday language with evidence-based insights 
+              from Neuraura’s curated articles (latest PCOS research up to May 2025) on symptoms, treatments, lifestyle, 
+              and emotional well-being. Use a warm, cheeky, empathetic tone like a concerned aunt, 
+              with varied endearments like “love,” “sweetie,” or “superstar,” simple language, and a touch of humor. 
+              Translate complex terms (e.g., “insulin resistance” to “struggling with sugar energy”). 
+              Keep responses short (1-2 sentences advice, 1-2 sentences explanation), validate feelings, 
+              and ask follow-ups (e.g., “How’s that been feeling?”).
+              Be direct, supportive, fun, and smart, prioritizing emotional support for PCOS’s sensitive nature. 
+              Never diagnose or treat; suggest consulting a healthcare professional if unsure, for urgent cases (e.g., crises),
+              or if info’s unavailable (e.g., “I don’t have that, sweetie—ask your doctor?”). 
+              Personalize with user details (e.g., pets).
         """
     if "server_awake" not in st.session_state:
         st.session_state["server_awake"] = False
@@ -164,7 +168,7 @@ def init_session_state():
 
 def main():
     """
-    Main entrypoint for the Neuraura AI Streamlit chat UI.
+    Main entrypoint for the Ask Betsy! Streamlit chat UI.
 
     - Initializes session state and sidebar controls.
     - Handles chat history and user input.
@@ -194,8 +198,8 @@ def main():
         return
     # --- END LOGIN PAGE ---
 
-    st.title("Neuraura AI")
-    st.markdown("_Created by M2M Tech_")
+    st.title("Ask Betsy!")
+    st.markdown("_Developed by M2M Tech for Neuraura_")
 
     init_session_state()
 
@@ -210,7 +214,7 @@ def main():
             st.success("System prompt updated!")
         st.markdown("---")
         st.info(
-            """**Disclaimer**\n\nThe information provided by Neuraura AI is intended for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read in this content. If you are experiencing a medical emergency, call your doctor or emergency services immediately."""
+            """**Disclaimer**\n\nThe information provided by Ask Betsy! is intended for educational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician or other qualified health provider with any questions you may have regarding a medical condition. Never disregard professional medical advice or delay in seeking it because of something you have read in this content. If you are experiencing a medical emergency, call your doctor or emergency services immediately."""
         )
 
     # Display chat history from session state
@@ -224,13 +228,13 @@ def main():
         max_retries = 4
         for attempt in range(max_retries):
             with st.spinner(
-                f"Waking up Neuraura AI from inactive state... (attempt {attempt+1})"
+                f"Waking up Ask Betsy! from inactive state... (attempt {attempt+1})"
             ):
                 if revive_lightrag_server():
                     break
                 elif attempt == max_retries - 1:
                     st.error(
-                        "Failed to reach Neuraura AI after multiple attempts. Try again later."
+                        "Failed to reach Ask Betsy! after multiple attempts. Try again later."
                     )
                     st.stop()
         # Add user message to chat history
@@ -239,7 +243,7 @@ def main():
             st.markdown(prompt)
         # Stream assistant response with a loading spinner
         with st.chat_message("assistant"):
-            with st.spinner("Neuraura AI is thinking..."):
+            with st.spinner("Ask Betsy! is thinking..."):
                 response = ""
                 # Stream response from LightRAG API, updating UI as chunks arrive
                 resp_gen = stream_lightrag_response(
